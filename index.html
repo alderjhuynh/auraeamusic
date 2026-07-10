@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>auraea</title>
+
+<link rel="icon" type="image/png" href="assets/favicon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="bg-wash" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<!-- nav -->
+<header class="nav" id="top">
+  <a class="nav__mark" href="#home">auraea</a>
+  <button class="nav__toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <nav class="nav__links" id="navLinks">
+    <a href="#home" class="nav__link" data-section="home">Home</a>
+    <a href="#bio" class="nav__link" data-section="bio">Bio</a>
+    <a href="#videos" class="nav__link" data-section="videos">Videos</a>
+    <a href="#music" class="nav__link" data-section="music">Music</a>
+    <a href="#contact" class="nav__link" data-section="contact">Contact</a>
+  </nav>
+</header>
+
+<main>
+
+  <!-- scroll fade -->
+  <div class="fade-wrap">
+
+    <section class="hero" id="home">
+      <div class="hero__inner">
+        <p class="eyebrow">music by</p>
+        <h1 class="hero__title">aur<em>ae</em>a</h1>
+        <p class="hero__tagline">I make music sometimes... Hopefully you like it</p>
+        <a href="#bio" class="scroll-cue" aria-label="Scroll to biography">
+          <span class="scroll-cue__drop"></span>
+          <span class="scroll-cue__label">scroll</span>
+        </a>
+      </div>
+      <div class="hero__portrait" role="img" aria-label="auraea profile photo"></div>
+    </section>
+
+    <section class="bio" id="bio">
+      <div class="bio__inner">
+        <p class="eyebrow">biography</p>
+        <h2 class="section-title">About</h2>
+        <div class="bio__grid">
+          <div class="bio__photo">
+            <div class="bio__photo-frame"></div>
+          </div>
+          <div class="bio__copy">
+            <p>I'm a US based songwriter/composer. I've been playing music for a lot of my life, but piano has always been one of my favorite instruments. I typically make some sort of neoclassical and orchestral pieces but you can see me braching out into electronica, hyperpop, and artcore.</p>
+            <p>I play games like Minecraft, Silksong, and Terraria. The osts from these games have definitely influenced my compositions. I also do a little bit of coding, which you can see here from my website I handmade!</p>
+            <p>I might open commissions soon, and I'm working on a couple songs right now, I hope you enjoy them when they're out! :)</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- vid -->
+  <section class="videos" id="videos">
+    <div class="section-inner">
+      <p class="eyebrow">on youtube</p>
+      <h2 class="section-title">Latest uploads</h2>
+
+      <div class="video-frame">
+        <iframe
+          src="https://www.youtube.com/embed/playlist?list=UUhOJGU-4d_cSBPOeK4uSpxQ"
+          title="auraea — latest uploads"
+          loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
+
+      <a class="btn btn--ghost" href="https://www.youtube.com/@auraeamusic?sub_confirmation=1" target="_blank" rel="noopener">
+        Subscribe on YouTube
+      </a>
+    </div>
+  </section>
+
+  <!-- links -->
+  <section class="music" id="music">
+    <div class="section-inner">
+      <p class="eyebrow">listen</p>
+      <h2 class="section-title">Find the music</h2>
+
+      <ul class="link-list">
+        <li><a href="sorry.html" target="_blank" rel="noopener"><span class="drop"></span>Spotify</a></li>
+        <li><a href="sorry.html" target="_blank" rel="noopener"><span class="drop"></span>Apple Music</a></li>
+        <li><a href="sorry.html" target="_blank" rel="noopener"><span class="drop"></span>SoundCloud</a></li>
+        <li><a href="sorry.html" target="_blank" rel="noopener"><span class="drop"></span>Bandcamp</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- contact and footer -->
+  <footer class="contact" id="contact">
+    <div class="section-inner">
+      <p class="eyebrow">get in touch</p>
+      <h2 class="section-title">Contact</h2>
+      <a class="contact__email" href="mailto:auraeamusic@gmail.com">auraeamusic@gmail.com</a>
+
+      <div class="socials">
+        <a href="https://www.youtube.com/@auraeamusic" target="_blank" rel="noopener" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.6V8.4L15.8 12l-6.2 3.6Z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/auraeamusic/" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.9.07 1.2.06 2 .25 2.4.42.6.24 1 .53 1.5.98.45.45.74.9.98 1.5.17.4.36 1.2.42 2.4.06 1.3.07 1.7.07 4.9s0 3.6-.07 4.9c-.06 1.2-.25 2-.42 2.4-.24.6-.53 1-.98 1.5-.45.45-.9.74-1.5.98-.4.17-1.2.36-2.4.42-1.3.06-1.7.07-4.9.07s-3.6 0-4.9-.07c-1.2-.06-2-.25-2.4-.42-.6-.24-1-.53-1.5-.98a4 4 0 0 1-.98-1.5c-.17-.4-.36-1.2-.42-2.4C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.9c.06-1.2.25-2 .42-2.4.24-.6.53-1 .98-1.5.45-.45.9-.74 1.5-.98.4-.17 1.2-.36 2.4-.42C8.4 2.2 8.8 2.2 12 2.2Zm0 1.8c-3.14 0-3.5 0-4.75.07-1 .04-1.6.2-1.96.34-.5.19-.84.42-1.2.79-.37.36-.6.7-.8 1.2-.13.36-.3.95-.34 1.96C2.9 8.5 2.9 8.86 2.9 12s0 3.5.07 4.75c.04 1 .2 1.6.34 1.96.19.5.42.84.79 1.2.36.37.7.6 1.2.8.36.13.95.3 1.96.34 1.24.06 1.6.07 4.75.07s3.5 0 4.75-.07c1-.04 1.6-.2 1.96-.34.5-.19.84-.42 1.2-.79.37-.36.6-.7.8-1.2.13-.36.3-.95.34-1.96.06-1.24.07-1.6.07-4.75s0-3.5-.07-4.75c-.04-1-.2-1.6-.34-1.96a3.2 3.2 0 0 0-.79-1.2 3.2 3.2 0 0 0-1.2-.8c-.36-.13-.95-.3-1.96-.34C15.5 4 15.14 4 12 4Zm0 3.4a4.6 4.6 0 1 1 0 9.2 4.6 4.6 0 0 1 0-9.2Zm0 1.8a2.8 2.8 0 1 0 0 5.6 2.8 2.8 0 0 0 0-5.6Zm4.8-2a1.08 1.08 0 1 1 0 2.16 1.08 1.08 0 0 1 0-2.16Z"/></svg>
+        </a>
+        <a href="https://www.tiktok.com/@auraeamusic" target="_blank" rel="noopener" aria-label="TikTok">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.8 2h2.9c.16 1.1.62 2 1.4 2.85.8.85 1.8 1.36 2.9 1.5v2.9c-1.5-.05-2.9-.5-4.1-1.35v6.65c0 3-2.45 5.45-5.5 5.45S5.9 16.55 5.9 13.55c0-2.85 2.15-5.2 4.9-5.45v3c-1.1.22-1.9 1.2-1.9 2.35 0 1.35 1.1 2.45 2.5 2.45s2.5-1.1 2.5-2.45V2Z"/></svg>
+        </a>
+      </div>
+
+      <p class="fine-print">&copy; <span id="year"></span> auraea. Site built with care :)</p>
+    </div>
+  </footer>
+
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>

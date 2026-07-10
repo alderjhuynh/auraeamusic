@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+
+<link rel="icon" type="image/png" href="assets/favicon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+<style>
+  .notfound{
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+  }
+  .notfound__wash{
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background:
+      radial-gradient(ellipse 90% 60% at 15% 10%,
+        color-mix(in srgb, var(--rose-300) 70%, transparent), transparent 68%),
+      linear-gradient(160deg, var(--rose-300) 0%, var(--paper) 62%);
+  }
+  .notfound__eyebrow{
+    font-size: .78rem;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--rose-700);
+    margin: 0 0 .8rem;
+  }
+  .notfound__title{
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-style: italic;
+    font-size: clamp(2.6rem, 7vw, 4.2rem);
+    line-height: 1.05;
+    margin: 0;
+    color: var(--plum-900);
+  }
+  .notfound__blurb{
+    margin: 1.2rem auto 2.6rem;
+    max-width: 42ch;
+    font-size: 1.05rem;
+    color: var(--plum-700);
+    line-height: 1.7;
+  }
+  .notfound__drop{
+    width: 9px; height: 14px;
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(45deg);
+    background: var(--rose-700);
+    margin: 0 auto 2rem;
+    animation: drip 2.2s ease-in-out infinite;
+  }
+  @media (prefers-reduced-motion: reduce){
+    .notfound__drop{ animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="notfound__wash" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="nav">
+  <a class="nav__mark" href="./">auraea</a>
+</header>
+
+<main class="notfound">
+  <div>
+    <span class="notfound__drop"></span>
+    <p class="notfound__eyebrow">not out yet</p>
+    <h1 class="notfound__title">I'm not on there, yet.</h1>
+    <p class="notfound__blurb">This link will point to real music once it's actually live. For now the site's still being built, and this is just a placeholder holding its spot. Check back soon.</p>
+    <a class="btn btn--ghost" href="./#music">Back to auraea</a>
+  </div>
+</main>
+
+</body>
+</html>
