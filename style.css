@@ -389,11 +389,60 @@ a:focus-visible, button:focus-visible{
   color: var(--plum-500);
 }
 
+/* toggle button that opens/closes the track list */
+.player__toggle{
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  font-family: var(--font-body);
+  font-size: .85rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: .85rem 1.6rem;
+  border-radius: 999px;
+  border: 1px solid var(--plum-900);
+  background: transparent;
+  color: var(--plum-900);
+  cursor: pointer;
+  transition: background .25s ease, color .25s ease, transform .25s ease;
+}
+.player__toggle:hover{
+  background: var(--plum-900);
+  color: var(--paper);
+  transform: translateY(-2px);
+}
+.player__toggle-chevron{
+  display: inline-flex;
+  transition: transform .3s ease;
+}
+.player__toggle-chevron svg{ display: block; }
+.player__toggle[aria-expanded="true"] .player__toggle-chevron{
+  transform: rotate(180deg);
+}
+
+/* scrollable panel so a long track list never pushes the page down */
+.player__panel{
+  margin-top: 1.6rem;
+  max-height: 420px;
+  overflow-y: auto;
+  border-top: 1px solid color-mix(in srgb, var(--plum-900) 12%, transparent);
+  padding-right: .5rem;
+}
+.player__panel[hidden]{ display: none; }
+.player__panel::-webkit-scrollbar{ width: 6px; }
+.player__panel::-webkit-scrollbar-track{ background: transparent; }
+.player__panel::-webkit-scrollbar-thumb{
+  background: var(--rose-300);
+  border-radius: 4px;
+}
+
 .player__list{
   display: flex;
   flex-direction: column;
 }
 
+/* outer wrapper YouTube never touches — this is what actually stays
+   clipped no matter what the replaced iframe's id/class ends up being */
 .player__yt-mount{
   position: fixed;
   bottom: 0;
@@ -403,46 +452,40 @@ a:focus-visible, button:focus-visible{
   overflow: hidden;
   opacity: 0;
   pointer-events: none;
+  z-index: -1;
 }
 
 .track{
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding: .9rem .2rem;
+  gap: .9rem;
+  padding: .85rem .2rem;
   border-bottom: 1px solid color-mix(in srgb, var(--plum-900) 12%, transparent);
   cursor: pointer;
   transition: padding-left .3s ease;
 }
 .track:hover{ padding-left: .5rem; }
 
-.track__thumb{
-  position: relative;
+.track__icon-btn{
   flex: 0 0 auto;
-  width: 54px;
-  height: 54px;
-  border-radius: 10px;
-  background-size: cover;
-  background-position: center;
-  background-color: var(--blush-200);
-  overflow: hidden;
-}
-
-.track__icon{
-  position: absolute;
-  inset: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--plum-900) 25%, transparent);
   display: grid;
   place-items: center;
-  color: var(--paper);
-  background: color-mix(in srgb, var(--plum-900) 40%, transparent);
-  opacity: 0;
-  transition: opacity .25s ease, background .25s ease;
+  color: var(--plum-900);
+  transition: background .25s ease, color .25s ease, border-color .25s ease;
 }
-.track__icon svg{ width: 20px; height: 20px; }
-.track:hover .track__icon,
-.track.is-active .track__icon{ opacity: 1; }
-.track.is-playing .track__icon{
-  background: color-mix(in srgb, var(--rose-700) 55%, transparent);
+.track__icon-btn svg{ display: block; }
+.track.is-active .track__icon-btn{
+  border-color: var(--rose-700);
+  color: var(--rose-700);
+}
+.track.is-playing .track__icon-btn{
+  background: var(--rose-700);
+  color: var(--paper);
+  border-color: var(--rose-700);
 }
 
 .track__body{
@@ -453,7 +496,7 @@ a:focus-visible, button:focus-visible{
 .track__title{
   margin: 0;
   font-family: var(--font-display);
-  font-size: clamp(1.05rem, 2.4vw, 1.3rem);
+  font-size: clamp(1.02rem, 2.2vw, 1.25rem);
   color: var(--plum-900);
   white-space: nowrap;
   overflow: hidden;

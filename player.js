@@ -2,16 +2,20 @@
   const cfg = window.AURAEA_PLAYER_CONFIG || {};
   const listEl = document.getElementById('playerList');
   const statusEl = document.getElementById('playerStatus');
-  const CACHE_KEY = 'auraea_tracks_cache_v1';
+  const toggleBtn = document.getElementById('playerToggle');
+  const toggleLabel = toggleBtn ? toggleBtn.querySelector('.player__toggle-label') : null;
+  const panelEl = document.getElementById('playerPanel');
+  const CACHE_KEY = 'auraea_tracks_cache_v2';
 
-  if (!listEl) return;
+  if (!listEl || !toggleBtn || !panelEl) return;
+
+  let tracksLoaded = false;
 
   function setStatus(msg){
     if (statusEl) statusEl.textContent = msg;
   }
 
   function fallbackToChannel(msg){
-    setStatus('');
     listEl.innerHTML = `
       <p class="player__status">${msg}</p>
       <a class="btn btn--ghost" href="https://www.youtube.com/@auraeamusic" target="_blank" rel="noopener">
@@ -19,7 +23,33 @@
       </a>`;
   }
 
-  // fetch playlist
+  // ── open/close panel ─────────────────────────────────────────────
+  toggleBtn.addEventListener('click', () => {
+    const isOpen = toggleBtn.getAttribute('aria-expanded') === 'true';
+    const nextOpen = !isOpen;
+
+    toggleBtn.setAttribute('aria-expanded', String(nextOpen));
+    panelEl.hidden = !nextOpen;
+    if (toggleLabel) toggleLabel.textContent = nextOpen ? 'Hide track list' : 'Show track list';
+
+    if (nextOpen && !tracksLoaded){
+      tracksLoaded = true;
+      getTracks()
+        .then(tracks => {
+          render(tracks);
+          loadIframeApi();
+        })
+        .catch(err => {
+          if (err.message === 'missing-key'){
+            fallbackToChannel('Player isn\u2019t configured yet.');
+          } else {
+            fallbackToChannel('Tracks couldn\u2019t be loaded right now.');
+          }
+        });
+    }
+  });
+
+  // ── fetch playlist (with localStorage caching) ──────────────────
   async function getTracks(){
     const cacheMs = (cfg.cacheMinutes || 20) * 60 * 1000;
     try {
@@ -29,7 +59,7 @@
       }
     } catch (e) { /* ignore bad cache */ }
 
-    if (!cfg.youtubeApiKey || cfg.youtubeApiKey === 'YOUR_YOUTUBE_API_KEY_HERE'){
+    if (!cfg.youtubeApiKey || cfg.youtubeApiKey === 'YOUR_YOUTUBE_API_KEY_HERE' || cfg.youtubeApiKey === '__YOUTUBE_API_KEY__'){
       throw new Error('missing-key');
     }
 
@@ -52,8 +82,7 @@
         if (!sn || !sn.resourceId || sn.title === 'Private video' || sn.title === 'Deleted video') return;
         tracks.push({
           id: sn.resourceId.videoId,
-          title: sn.title,
-          thumb: (sn.thumbnails && (sn.thumbnails.medium || sn.thumbnails.default) || {}).url || ''
+          title: sn.title
         });
       });
 
@@ -67,7 +96,7 @@
     return tracks;
   }
 
-  // render track list
+  // ── render track list (titles only, no thumbnails/video) ─────────
   function render(tracks){
     if (!tracks.length){
       fallbackToChannel("Couldn't find any tracks right now.");
@@ -84,9 +113,7 @@
       row.setAttribute('aria-label', `Play ${track.title}`);
 
       row.innerHTML = `
-        <div class="track__thumb" style="background-image:url('${track.thumb}')">
-          <span class="track__icon">${iconPlay()}</span>
-        </div>
+        <span class="track__icon-btn">${iconPlay()}</span>
         <div class="track__body">
           <p class="track__title">${escapeHtml(track.title)}</p>
           <div class="track__progress"><div class="track__progress-bar"></div></div>
@@ -110,13 +137,16 @@
     return d.innerHTML;
   }
 
+  // explicit width/height attributes on the <svg> itself — this way
+  // the icon is always the right size even if CSS fails to load
   function iconPlay(){
-    return `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg>`;
+    return `<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg>`;
   }
   function iconPause(){
-    return `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>`;
+    return `<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>`;
   }
 
+  // ── YouTube IFrame player (hidden, audio only) ───────────────────
   let ytPlayer = null;
   let ytReady = false;
   let pendingPlayId = null;
@@ -143,14 +173,15 @@
       window.onYouTubeIframeAPIReady();
       return;
     }
+    if (document.getElementById('ytIframeApiScript')) return;
     const tag = document.createElement('script');
+    tag.id = 'ytIframeApiScript';
     tag.src = 'https://www.youtube.com/iframe_api';
     document.head.appendChild(tag);
   }
 
   function handleTrackClick(videoId, row){
     if (currentRow === row){
-      // toggle play/pause on the currently selected track
       if (!ytPlayer || !ytReady) return;
       const state = ytPlayer.getPlayerState();
       if (state === YT.PlayerState.PLAYING){
@@ -177,8 +208,8 @@
       currentRow.classList.remove('is-playing', 'is-active');
       const bar = currentRow.querySelector('.track__progress-bar');
       if (bar) bar.style.width = '0%';
-      const icon = currentRow.querySelector('.track__icon');
-      if (icon) icon.innerHTML = iconPlay();
+      const iconBtn = currentRow.querySelector('.track__icon-btn');
+      if (iconBtn) iconBtn.innerHTML = iconPlay();
     }
     currentRow = row;
     row.classList.add('is-active');
@@ -186,19 +217,19 @@
 
   function onPlayerStateChange(e){
     if (!currentRow) return;
-    const icon = currentRow.querySelector('.track__icon');
+    const iconBtn = currentRow.querySelector('.track__icon-btn');
 
     if (e.data === YT.PlayerState.PLAYING){
       currentRow.classList.add('is-playing');
-      if (icon) icon.innerHTML = iconPause();
+      if (iconBtn) iconBtn.innerHTML = iconPause();
       startProgressTimer();
     } else if (e.data === YT.PlayerState.PAUSED){
       currentRow.classList.remove('is-playing');
-      if (icon) icon.innerHTML = iconPlay();
+      if (iconBtn) iconBtn.innerHTML = iconPlay();
       stopProgressTimer();
     } else if (e.data === YT.PlayerState.ENDED){
       currentRow.classList.remove('is-playing');
-      if (icon) icon.innerHTML = iconPlay();
+      if (iconBtn) iconBtn.innerHTML = iconPlay();
       stopProgressTimer();
       const bar = currentRow.querySelector('.track__progress-bar');
       if (bar) bar.style.width = '0%';
@@ -234,18 +265,4 @@
       progressTimer = null;
     }
   }
-
-  // boot
-  getTracks()
-    .then(tracks => {
-      render(tracks);
-      loadIframeApi();
-    })
-    .catch(err => {
-      if (err.message === 'missing-key'){
-        fallbackToChannel('Player isn\u2019t configured yet.');
-      } else {
-        fallbackToChannel('Tracks couldn\u2019t be loaded right now.');
-      }
-    });
 })();

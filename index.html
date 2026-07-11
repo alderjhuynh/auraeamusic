@@ -115,12 +115,25 @@
       <h2 class="section-title">Play a track</h2>
       <p class="section-lede">Pulled straight from the YouTube channel, in upload order — this list updates on its own whenever a new track goes up.</p>
 
-      <div class="player__list" id="playerList">
-        <p class="player__status" id="playerStatus">Loading tracks&hellip;</p>
+      <button class="player__toggle" id="playerToggle" type="button" aria-expanded="false" aria-controls="playerPanel">
+        <span class="player__toggle-label">Show track list</span>
+        <span class="player__toggle-chevron" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </span>
+      </button>
+
+      <div class="player__panel" id="playerPanel" hidden>
+        <div class="player__list" id="playerList">
+          <p class="player__status" id="playerStatus">Loading tracks&hellip;</p>
+        </div>
       </div>
     </div>
 
-    <div id="ytPlayerMount" class="player__yt-mount" aria-hidden="true"></div>
+    <!-- outer wrapper always stays hidden/clipped, regardless of what the -->
+    <!-- YouTube API does to the inner element it replaces -->
+    <div class="player__yt-mount" aria-hidden="true">
+      <div id="ytPlayerMount"></div>
+    </div>
   </section>
 
   <!-- contact and footer -->
