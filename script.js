@@ -131,7 +131,7 @@
   // ── shh ───────────────────────────────────────────────────────
   const navMark = document.querySelector('.nav__mark');
   if (navMark){
-    const secretAudio = new Audio('assets/very_hidden.mp3');
+    const secretAudio = new Audio('/assets/very_hidden.mp3');
     navMark.addEventListener('click', () => {
       // reuse the same Audio instance and rewind it on every click,
       // so there's never more than one overlapping copy playing
