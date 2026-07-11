@@ -5,7 +5,6 @@
   const toggleBtn = document.getElementById('playerToggle');
   const toggleLabel = toggleBtn ? toggleBtn.querySelector('.player__toggle-label') : null;
   const panelEl = document.getElementById('playerPanel');
-  const CACHE_KEY = 'auraea_tracks_cache_v2';
 
   if (!listEl || !toggleBtn || !panelEl) return;
 
@@ -49,16 +48,8 @@
     }
   });
 
-  // ── fetch playlist (with localStorage caching) ──────────────────
+  // ── fetch playlist (always fresh, no caching) ────────────────────
   async function getTracks(){
-    const cacheMs = (cfg.cacheMinutes || 20) * 60 * 1000;
-    try {
-      const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
-      if (cached && Date.now() - cached.time < cacheMs && Array.isArray(cached.tracks)){
-        return cached.tracks;
-      }
-    } catch (e) { /* ignore bad cache */ }
-
     if (!cfg.youtubeApiKey || cfg.youtubeApiKey === 'YOUR_YOUTUBE_API_KEY_HERE' || cfg.youtubeApiKey === '__YOUTUBE_API_KEY__'){
       throw new Error('missing-key');
     }
@@ -88,10 +79,6 @@
 
       pageToken = data.nextPageToken || '';
     } while (pageToken);
-
-    try {
-      localStorage.setItem(CACHE_KEY, JSON.stringify({ time: Date.now(), tracks }));
-    } catch (e) { /* storage full or blocked, no big deal */ }
 
     return tracks;
   }
