@@ -561,9 +561,48 @@ a:focus-visible, button:focus-visible{
 }
 
 .fine-print{
+  position: relative;
+  display: inline-block;
   margin-top: 3.2rem;
   font-size: .8rem;
   color: color-mix(in srgb, var(--paper) 55%, transparent);
+}
+
+.fine-print__text{
+  position: relative;
+  z-index: 1;
+}
+
+.copyright-mark{
+  cursor: pointer;
+}
+
+/* ── shh, part two ─────────────────────────────────────────────── */
+.fine-print::before{
+  content: '';
+  position: absolute;
+  inset: -.3em -.5em;
+  border-radius: 5px;
+  background: linear-gradient(180deg,
+    #5bcefa 0%,   #5bcefa 20%,
+    #f5a9b8 20%,  #f5a9b8 40%,
+    #ffffff 40%,  #ffffff 60%,
+    #f5a9b8 60%,  #f5a9b8 80%,
+    #5bcefa 80%,  #5bcefa 100%);
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: opacity .35s ease, transform .55s cubic-bezier(.2,.8,.3,1);
+  z-index: 0;
+  pointer-events: none;
+}
+.fine-print.is-flashing::before{
+  opacity: 1;
+  transform: scaleX(1);
+}
+.fine-print.is-flashing .fine-print__text{
+  color: var(--plum-900);
+  transition: color .25s ease .1s;
 }
 
 /* scroll reveal */

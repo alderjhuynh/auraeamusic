@@ -139,4 +139,37 @@
       secretAudio.play().catch(() => { /* ignore autoplay-policy rejections */ });
     });
   }
+
+  const finePrint = document.getElementById('finePrint');
+  const finePrintText = document.getElementById('finePrintText');
+  if (finePrint && finePrintText){
+    const originalMarkup = finePrintText.innerHTML;
+    let isFlashing = false;
+
+    const runFlagFlash = () => {
+      if (isFlashing) return;
+      isFlashing = true;
+
+      finePrint.classList.add('is-flashing');
+
+      setTimeout(() => {
+        finePrintText.innerHTML = originalMarkup;
+        finePrint.classList.remove('is-flashing');
+      }, 2100);
+
+      setTimeout(() => {
+        isFlashing = false;
+      }, 2600);
+    };
+
+    finePrint.addEventListener('click', (e) => {
+      if (e.target.closest('#copyrightMark')) runFlagFlash();
+    });
+    finePrint.addEventListener('keydown', (e) => {
+      if ((e.key === 'Enter' || e.key === ' ') && e.target.closest('#copyrightMark')){
+        e.preventDefault();
+        runFlagFlash();
+      }
+    });
+  }
 })();
