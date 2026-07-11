@@ -127,4 +127,16 @@
 
   const yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+  // ── shh ───────────────────────────────────────────────────────
+  const navMark = document.querySelector('.nav__mark');
+  if (navMark){
+    const secretAudio = new Audio('assets/very_hidden.mp3');
+    navMark.addEventListener('click', () => {
+      // reuse the same Audio instance and rewind it on every click,
+      // so there's never more than one overlapping copy playing
+      secretAudio.currentTime = 0;
+      secretAudio.play().catch(() => { /* ignore autoplay-policy rejections */ });
+    });
+  }
 })();
