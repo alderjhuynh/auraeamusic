@@ -29,6 +29,7 @@
     <a href="#bio" class="nav__link" data-section="bio">Bio</a>
     <a href="#videos" class="nav__link" data-section="videos">Videos</a>
     <a href="#music" class="nav__link" data-section="music">Music</a>
+    <a href="#player" class="nav__link" data-section="player">Listen</a>
     <a href="#contact" class="nav__link" data-section="contact">Contact</a>
   </nav>
 </header>
@@ -107,6 +108,21 @@
     </div>
   </section>
 
+  <!-- player -->
+  <section class="player" id="player">
+    <div class="section-inner">
+      <p class="eyebrow">stream</p>
+      <h2 class="section-title">Play a track</h2>
+      <p class="section-lede">Pulled straight from the YouTube channel, in upload order — this list updates on its own whenever a new track goes up.</p>
+
+      <div class="player__list" id="playerList">
+        <p class="player__status" id="playerStatus">Loading tracks&hellip;</p>
+      </div>
+    </div>
+
+    <div id="ytPlayerMount" class="player__yt-mount" aria-hidden="true"></div>
+  </section>
+
   <!-- contact and footer -->
   <footer class="contact" id="contact">
     <div class="section-inner">
@@ -132,6 +148,8 @@
 
 </main>
 
+<script src="player-config.js"></script>
+<script src="player.js"></script>
 <script src="script.js"></script>
 </body>
 </html>

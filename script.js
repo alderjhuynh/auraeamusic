@@ -75,7 +75,7 @@
 
   // scroll reveal for content blocks
   const revealTargets = document.querySelectorAll(
-    '.bio__grid, .section-lede, .video-frame, .btn--ghost, .link-list, .contact__email, .socials'
+    '.bio__grid, .section-lede, .video-frame, .btn--ghost, .link-list, .player__list, .contact__email, .socials'
   );
   revealTargets.forEach(el => el.classList.add('reveal'));
 
@@ -93,7 +93,7 @@
   // nav
 
   const navLinks = document.querySelectorAll('.nav__link');
-  const sections = ['home', 'bio', 'videos', 'music', 'contact']
+  const sections = ['home', 'bio', 'videos', 'music', 'player', 'contact']
     .map(id => document.getElementById(id))
     .filter(Boolean);
 
