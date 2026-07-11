@@ -5,7 +5,7 @@
   const toggleBtn = document.getElementById('playerToggle');
   const toggleLabel = toggleBtn ? toggleBtn.querySelector('.player__toggle-label') : null;
   const panelEl = document.getElementById('playerPanel');
-  const CACHE_KEY = 'auraea_tracks_cache_v4';
+  const CACHE_KEY = 'auraea_tracks_cache_v2';
 
   if (!listEl || !toggleBtn || !panelEl) return;
 
@@ -80,7 +80,6 @@
       (data.items || []).forEach(item => {
         const sn = item.snippet;
         if (!sn || !sn.resourceId || sn.title === 'Private video' || sn.title === 'Deleted video') return;
-        if (isShort(sn.thumbnails)) return;
         tracks.push({
           id: sn.resourceId.videoId,
           title: sn.title
@@ -97,19 +96,6 @@
     return tracks;
   }
 
-  // ── detect Shorts by thumbnail aspect ratio ───────────────────────
-  // Shorts are uploaded vertical/square (height >= width); regular
-  // uploads are landscape (16:9). This works for songs of any length,
-  // including ones under 60s, since it doesn't rely on duration at all.
-  function isShort(thumbnails){
-    if (!thumbnails) return false;
-    const thumb = thumbnails.maxres || thumbnails.standard || thumbnails.high
-      || thumbnails.medium || thumbnails.default;
-    if (!thumb || !thumb.width || !thumb.height) return false;
-    return thumb.height >= thumb.width;
-  }
-
-  // ── render track list (titles only, no thumbnails/video) ─────────
   function render(tracks){
     if (!tracks.length){
       fallbackToChannel("Couldn't find any tracks right now.");
@@ -150,8 +136,6 @@
     return d.innerHTML;
   }
 
-  // explicit width/height attributes on the <svg> itself — this way
-  // the icon is always the right size even if CSS fails to load
   function iconPlay(){
     return `<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg>`;
   }
@@ -159,7 +143,6 @@
     return `<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>`;
   }
 
-  // ── YouTube IFrame player (hidden, audio only) ───────────────────
   let ytPlayer = null;
   let ytReady = false;
   let pendingPlayId = null;
