@@ -5,7 +5,7 @@
   const toggleBtn = document.getElementById('playerToggle');
   const toggleLabel = toggleBtn ? toggleBtn.querySelector('.player__toggle-label') : null;
   const panelEl = document.getElementById('playerPanel');
-  const CACHE_KEY = 'auraea_tracks_cache_v2';
+  const CACHE_KEY = 'auraea_tracks_cache_v4';
 
   if (!listEl || !toggleBtn || !panelEl) return;
 
@@ -80,6 +80,7 @@
       (data.items || []).forEach(item => {
         const sn = item.snippet;
         if (!sn || !sn.resourceId || sn.title === 'Private video' || sn.title === 'Deleted video') return;
+        if (isShort(sn.thumbnails)) return;
         tracks.push({
           id: sn.resourceId.videoId,
           title: sn.title
@@ -94,6 +95,18 @@
     } catch (e) { /* storage full or blocked, no big deal */ }
 
     return tracks;
+  }
+
+  // ── detect Shorts by thumbnail aspect ratio ───────────────────────
+  // Shorts are uploaded vertical/square (height >= width); regular
+  // uploads are landscape (16:9). This works for songs of any length,
+  // including ones under 60s, since it doesn't rely on duration at all.
+  function isShort(thumbnails){
+    if (!thumbnails) return false;
+    const thumb = thumbnails.maxres || thumbnails.standard || thumbnails.high
+      || thumbnails.medium || thumbnails.default;
+    if (!thumb || !thumb.width || !thumb.height) return false;
+    return thumb.height >= thumb.width;
   }
 
   // ── render track list (titles only, no thumbnails/video) ─────────
