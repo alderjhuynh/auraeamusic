@@ -204,7 +204,7 @@ a:focus-visible, button:focus-visible{
   position: relative;
 }
 
-#bio, #videos, #music, #contact{
+#bio, #videos, #music, #player, #contact{
   scroll-margin-top: var(--nav-h);
 }
 
@@ -377,6 +377,105 @@ a:focus-visible, button:focus-visible{
 .link-list a:hover{
   padding-left: .9rem;
   color: var(--rose-700);
+}
+
+/* player */
+.player{
+  background: var(--paper);
+}
+
+.player__status{
+  font-size: .95rem;
+  color: var(--plum-500);
+}
+
+.player__list{
+  display: flex;
+  flex-direction: column;
+}
+
+.player__yt-mount{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.track{
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: .9rem .2rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--plum-900) 12%, transparent);
+  cursor: pointer;
+  transition: padding-left .3s ease;
+}
+.track:hover{ padding-left: .5rem; }
+
+.track__thumb{
+  position: relative;
+  flex: 0 0 auto;
+  width: 54px;
+  height: 54px;
+  border-radius: 10px;
+  background-size: cover;
+  background-position: center;
+  background-color: var(--blush-200);
+  overflow: hidden;
+}
+
+.track__icon{
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--paper);
+  background: color-mix(in srgb, var(--plum-900) 40%, transparent);
+  opacity: 0;
+  transition: opacity .25s ease, background .25s ease;
+}
+.track__icon svg{ width: 20px; height: 20px; }
+.track:hover .track__icon,
+.track.is-active .track__icon{ opacity: 1; }
+.track.is-playing .track__icon{
+  background: color-mix(in srgb, var(--rose-700) 55%, transparent);
+}
+
+.track__body{
+  flex: 1;
+  min-width: 0;
+}
+
+.track__title{
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 2.4vw, 1.3rem);
+  color: var(--plum-900);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color .25s ease;
+}
+.track.is-active .track__title{ color: var(--rose-700); }
+
+.track__progress{
+  margin-top: .5rem;
+  height: 2px;
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--plum-900) 10%, transparent);
+  overflow: hidden;
+}
+.track__progress-bar{
+  height: 100%;
+  width: 0%;
+  background: var(--gold-600);
+}
+.track.is-playing .track__progress-bar{
+  transition: width .4s linear;
 }
 
 /* contact and footer */
