@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[Practice Name]</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;1,400&family=Public+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="nav" id="top">
+  <a class="nav__mark" href="#home">[Dr. First Last, PhD]</a>
+  <button class="nav__toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <nav class="nav__links" id="navLinks">
+    <a href="#about" class="nav__link">About</a>
+    <a href="#focus" class="nav__link">Focus areas</a>
+    <a href="#research" class="nav__link">Research</a>
+    <a href="#resources" class="nav__link">Resources</a>
+    <a href="#schedule" class="nav__link">Schedule</a>
+    <a href="#contact" class="nav__link">Contact</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero" id="home">
+    <p class="eyebrow">Professional Title &middot; [State] lic. #[00000]</p>
+    <h1 class="hero__title">[Headline about the practice]</h1>
+    <p class="hero__tagline">[One or two sentences on who you work with and how].</p>
+    <div class="hero__actions">
+      <a href="#schedule" class="btn btn--primary">Schedule a consult</a>
+      <a href="#about" class="btn btn--ghost">Read her approach</a>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <div class="section-inner">
+      <p class="eyebrow">about</p>
+      <h2 class="section-title">[About Dr. Last Name]</h2>
+      <div class="about__grid">
+        <div class="about__photo">
+          <div class="about__photo-frame"></div>
+        </div>
+        <div class="about__copy">
+          <p>[Placeholder paragraph: background, training, and therapeutic philosophy.]</p>
+          <p>[Placeholder paragraph: education, licensure, and any specialized training or certifications.]</p>
+          <ul class="credentials">
+            <li>[PhD / PsyD, Institution, Year]</li>
+            <li>[Postdoctoral fellowship or residency]</li>
+            <li>[Certification / training]</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="focus" id="focus">
+    <div class="section-inner">
+      <p class="eyebrow">areas of focus</p>
+      <h2 class="section-title">[What she treats]</h2>
+      <div class="focus__grid">
+        <div class="focus__card">
+          <h3>[Focus area one]</h3>
+          <p>[One line describing the approach used for this area.]</p>
+        </div>
+        <div class="focus__card">
+          <h3>[Focus area two]</h3>
+          <p>[One line describing the approach used for this area.]</p>
+        </div>
+        <div class="focus__card">
+          <h3>[Focus area three]</h3>
+          <p>[One line describing the approach used for this area.]</p>
+        </div>
+        <div class="focus__card">
+          <h3>[Focus area four]</h3>
+          <p>[One line describing the approach used for this area.]</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="research" id="research">
+    <div class="section-inner">
+      <p class="eyebrow">research &amp; publications</p>
+      <h2 class="section-title">[Selected work]</h2>
+      <ul class="pub-list">
+        <li>
+          <span class="pub-list__title">[Publication title, Journal, Year]</span>
+          <a href="#" class="pub-list__link">View &rarr;</a>
+        </li>
+        <li>
+          <span class="pub-list__title">[Publication title, Journal, Year]</span>
+          <a href="#" class="pub-list__link">View &rarr;</a>
+        </li>
+        <li>
+          <span class="pub-list__title">[Publication title, Journal, Year]</span>
+          <a href="#" class="pub-list__link">View &rarr;</a>
+        </li>
+      </ul>
+      <a href="#" class="text-link">[Google Scholar / ORCID profile] &rarr;</a>
+    </div>
+  </section>
+
+  <section class="resources" id="resources">
+    <div class="section-inner">
+      <p class="eyebrow">resources</p>
+      <h2 class="section-title">[Getting started]</h2>
+      <div class="faq">
+        <details class="faq__item">
+          <summary>[What should I expect in a first session?]</summary>
+          <p>[Placeholder answer.]</p>
+        </details>
+        <details class="faq__item">
+          <summary>[Do you accept insurance?]</summary>
+          <p>[Placeholder answer.]</p>
+        </details>
+        <details class="faq__item">
+          <summary>[What is your fee / sliding scale policy?]</summary>
+          <p>[Placeholder answer.]</p>
+        </details>
+        <details class="faq__item">
+          <summary>[Do you offer telehealth?]</summary>
+          <p>[Placeholder answer.]</p>
+        </details>
+      </div>
+      <div class="external-resources">
+        <p class="external-resources__label">[External resources]</p>
+        <ul class="link-list">
+          <li><a href="#">[Resource name]</a></li>
+          <li><a href="#">[Resource name]</a></li>
+          <li><a href="#">[Resource name]</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="schedule" id="schedule">
+    <div class="section-inner">
+      <p class="eyebrow">schedule</p>
+      <h2 class="section-title">[Book a consultation]</h2>
+      <p class="section-lede">[Invitation for consultation]</p>
+      <div class="schedule__embed">
+        <p>[Calendly / Cal.com embed placeholder]</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="contact" id="contact">
+    <div class="section-inner">
+      <p class="eyebrow">get in touch</p>
+      <h2 class="section-title">[Contact]</h2>
+      <p class="contact__note">[For scheduling and general questions only, not for clinical emergencies.]</p>
+
+      <form class="contact__form">
+        <label>
+          <span>[Name]</span>
+          <input type="text" placeholder="[Your name]">
+        </label>
+        <label>
+          <span>[Email]</span>
+          <input type="email" placeholder="[you@example.com]">
+        </label>
+        <label>
+          <span>[Message]</span>
+          <textarea rows="4" placeholder="[How can she help?]"></textarea>
+        </label>
+        <button type="submit" class="btn btn--primary">[Send]</button>
+      </form>
+
+      <div class="socials">
+        <a href="#" aria-label="LinkedIn">[LinkedIn]</a>
+        <a href="#" aria-label="Psychology Today">[Psychology Today]</a>
+      </div>
+
+      <p class="crisis-note">[988 disclaimer because the site is static]</p>
+
+      <p class="fine-print">&copy; <span id="year"></span> [Practice Name]. [License / jurisdiction line].</p>
+    </div>
+  </footer>
+
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
